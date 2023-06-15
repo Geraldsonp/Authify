@@ -1,0 +1,13 @@
+@import './base.css';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+#app {
+    max-width: 1440px;
+    margin: 0 auto;
+    font-weight: normal;
+    
+    @apply bg-white min-h-[80vh] container
+}
+
