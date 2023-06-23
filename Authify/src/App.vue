@@ -1,16 +1,15 @@
 <template>
-    <div class="grid place-items-center align-middle h-[90vh] border rounded-md  shadow-gray-300 shadow-md">
-        <Profile/>
+    <div>
+        <navBar class="mb-9"/>
+        <router-view></router-view>
     </div>
 </template>
 
 <script setup>
-import LogIn from './components/LogIn.vue';
-import Profile from './components/Profile.vue'
-
-components:{
-    LogIn
-}
+    import navBar from './components/navBar.vue';
+    components:{
+        navBar
+    }
 </script>
 
 <style scoped>

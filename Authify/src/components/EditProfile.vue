@@ -8,10 +8,7 @@
 
 </style>
 <template>
-    <div class="w-full">
-        <a href="#" @click="handleBack">Back</a>
-    </div>
-    <div>
+    <div class="my-7">
         <h3>Change Info</h3>
         <p>Changes will be reflected to every services</p>
 
@@ -59,13 +56,10 @@ export default {
             }
         }
     },
-    emits:['submit', 'goBack'],
+    emits:['submit'],
     methods:{
         handleSubmit(){
             this.$emit('submit', this.profileModel)
-        },
-        handleBack(){
-            this.$emit('goBack', false)
         }
     }
 }

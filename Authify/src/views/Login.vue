@@ -1,24 +1,10 @@
 <template>
-        <div class="logIn-container">
+    <div class="logIn-container">
             <img :src="logos.devChallenges" alt="">
-            <div v-if="!IsLogIn" class="header-container">
-                <h3 class="header-text">Join thousands of learners from around the world</h3>
-                <p class="header-paragraph">Master web development by making real-life projects. there are multiple paths for you to choose</p>
-            </div>
-            <div v-if="IsLogIn" class="my-5">
-                <h3 class="header-text">Login</h3>
-            </div>
-            <div>
-                <div class="form-container">
-                    <span class="material-icons input-icon">email</span>
-                    <input v-model="loginCredentials.email" class="field-input" type="text" placeholder="Email">
-                </div>
-                <div class="w-full relative">
-                    <span class="material-icons input-icon">lock</span>
-                    <input v-model="loginCredentials.password" class="field-input" type="password" placeholder="Password">
-                </div>
-                <button @click="submit" class="bg-blue-500 w-full rounded-md py-2 text-white font-semibold my-6" type="button">{{ submitBtnText }}</button>
-            </div>
+           
+            <LogInForm v-if="IsLogIn" @submit="logUserIn"/>
+            <RegisterForm v-else @submit="registerUser"/>
+
             <div class=" flex-row justify-items-center w-2/3 mx-auto text-gray-400">
                 <p class="text-center text-sm">or continue with these solcial profile</p>
                 <div class="flex justify-between my-5">
@@ -37,27 +23,28 @@
             </div>
         </div>
 </template>
-
 <script >
+
     import {singUp, logIn} from '@/services/authService.js'
     import logo from '@/assets/devchallenges.svg';
     import googleLogo from '@/assets/Google.svg';
     import githubLogo from '@/assets/Gihub.svg';
     import twitterLogo from '@/assets/Twitter.svg';
     import facebookLogo from '@/assets/Facebook.svg';
-
+    import { getMyInfo } from '@/services/profileService';
+    import { userStore } from '@/store/userStore';
+    import RegisterForm from '@/components/RegisterForm.vue';
+    import LogInForm from '@/components/LogInForm.vue';
     
 
     
     export default {
-        
+        components:{
+            RegisterForm,
+            LogInForm
+        },
         data(){
             return{
-                loginCredentials: {
-                    email:"",
-                    password:"",
-                    name:"JohnDoe"
-                },
                 logos:{
                     devChallenges: logo,
                     google: googleLogo,
@@ -65,7 +52,8 @@
                     twitter: twitterLogo,
                     facebook: facebookLogo
                 },
-                IsLogIn: false
+                IsLogIn: false,
+                userStore
                 
             }
         },
@@ -75,17 +63,17 @@
             }
         },
         methods:{
-            submit(){
-                if(this.IsLogIn){
-                    logIn(this.loginCredentials).then(response => {
+            logUserIn(loginCredentials){
+                logIn(loginCredentials).then(response => {
                         localStorage.setItem("token", response.data);
+                        
                     })
-                }else{
-                    singUp(this.loginCredentials).then(response => {
+            },
+            registerUser(loginCredentials){
+                    singUp(loginCredentials).then(response => {
                         localStorage.setItem("token", response.data);
+                       
                     })
-                }
-                
             }
         }
     }
@@ -93,7 +81,7 @@
 
 <style scoped>
     .logIn-container{
-        @apply max-w-[475px] p-14 border rounded-2xl shadow-lg border-gray-300
+        @apply mx-auto max-w-[475px] p-14 border rounded-2xl shadow-lg border-gray-300
     }
     .header-container{
         @apply my-5 pr-4
