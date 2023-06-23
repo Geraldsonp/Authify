@@ -2,8 +2,14 @@
     <div class="logIn-container">
             <img :src="logos.devChallenges" alt="">
            
-            <LogInForm v-if="IsLogIn" @submit="logUserIn"/>
-            <RegisterForm v-else @submit="registerUser"/>
+            <Transition mode="out-in">
+                <div  v-if="IsLogIn">
+                    <LogInForm  @submit="logUserIn"/>
+                </div>
+                <div v-else>
+                    <RegisterForm   @submit="registerUser"/>
+                </div>
+            </Transition>
 
             <div class=" flex-row justify-items-center w-2/3 mx-auto text-gray-400">
                 <p class="text-center text-sm">or continue with these solcial profile</p>
@@ -104,5 +110,26 @@
     .field-input{
         @apply w-full px-10 py-2 border rounded-md
     }
+
+    .v-enter-from {
+    opacity: 0;
+    translate: -100px 0;
+    transition-duration: 200ms;
+  }
+  .v-enter-to {
+    opacity: 1;
+    translate: 0 0;
+    transition-duration: 300ms;
+  }
+  .v-leave-from {
+    opacity: 1;
+    translate: 0 0;
+    transition-duration: 100ms;
+  }
+  .v-leave-to {
+    opacity: 0;
+    translate: 100px 0;
+    transition-duration: 100ms;
+  }
 
 </style>
