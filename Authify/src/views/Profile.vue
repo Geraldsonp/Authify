@@ -1,11 +1,21 @@
 <template>
-    <div class="max-w-lg mx-auto">
+    <div class="max-w-3xl mx-auto">
         <div class="">
+            <div>
+                <h1 class="text-center text-4xl mb-3">Personal info</h1>
+                <p class="text-lg text-center text-gray-600">Basic info, loke your name and photo</p>
+            </div>
             <div class="flex justify-between align-middle ">
-                <div class="max-w-[210px]">
+                <Transition name="slide-up" mode="out-in">
+                <div v-if="!isEdit" class="">
                     <h3 class="text-3xl my-1">Profile</h3>
                     <p class="text-gray-500 text-base">Some info may be visible to other people</p>
                 </div>
+                <div v-else>
+                    <h3 class="text-3xl my-1">Change Info</h3>
+                    <p  class="text-gray-500 text-base">Changes will be reflected to every services</p>
+                </div>
+                </Transition>
                 <div class="grid place-content-center">
                     <Transition name="slide-up" mode="out-in">
                         <button v-if="!isEdit" @click="editToggle"  class="border border-gray-500 text-gray-500 font-semibold px-9 py-2 text-lg rounded-lg">Edit</button>
@@ -15,14 +25,14 @@
             </div>
         </div>
         <Profile :user="userStore.user" v-if="!isEdit"/>
-        <EditProfile v-if="isEdit" :profile="userStore.user" @submit="updateProfile"/>
+        <EditProfile v-else :profile="userStore.user" @submit="updateProfile"/>
     </div>
 </template>
 <script>
 import Profile from '@/components/Profile.vue';
 import {userStore} from '@/store/userStore'
 import EditProfile from '@/components/EditProfile.vue';
-import { getMyInfo, updateProfile } from '@/services/profileService';
+import { updateProfile } from '@/services/profileService';
 
  export default{
     components:{
@@ -35,22 +45,13 @@ import { getMyInfo, updateProfile } from '@/services/profileService';
             isEdit: false
         }
     },
-    beforeMount(){
-        this.getProfileInfo();
-    },
     methods:{
-        getProfileInfo(){
-            getMyInfo().then(response => {
-                console.log(response.data);
-                userStore.user = response.data;
-            })
-        },
         updateProfile(profile){
             updateProfile(profile, userStore.user.id)
                 .then(response => {
                     userStore.user = response.data;
-                })
-            this.editToggle();
+                    this.editToggle();
+                }).catch(console.log)
         },
         editToggle(){
             this.isEdit = !this.isEdit;

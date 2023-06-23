@@ -9,9 +9,10 @@
 </style>
 <template>
     <div class="my-7">
-        <h3>Change Info</h3>
-        <p>Changes will be reflected to every services</p>
-
+        <div class="my-6">
+            <label for="name" class="label">ImageUrl</label>
+            <input v-model="profileModel.imageUrl" id="name" type="text"  class="input" required>
+        </div>
         <div class="my-6">
             <label for="name" class="label">Name</label>
             <input v-model="profileModel.name" id="name" type="text"  class="input" required>

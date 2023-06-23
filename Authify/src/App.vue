@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="px-1">
         <navBar class="mb-9"/>
         <router-view></router-view>
     </div>

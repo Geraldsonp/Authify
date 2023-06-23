@@ -71,14 +71,18 @@
         methods:{
             logUserIn(loginCredentials){
                 logIn(loginCredentials).then(response => {
-                        localStorage.setItem("token", response.data);
-                        
+                        localStorage.setItem("token", response.data.token);
+                        localStorage.setItem("profile", JSON.stringify(response.data.profile));
+                        userStore.user = response.data.profile
+                        this.$router.push('/profile');
                     })
             },
             registerUser(loginCredentials){
                     singUp(loginCredentials).then(response => {
-                        localStorage.setItem("token", response.data);
-                       
+                        localStorage.setItem("token", response.data.token);
+                        localStorage.setItem("profile", JSON.stringify(response.data.profile));
+                        userStore.user = response.data.profile
+                        this.$router.push('/profile');
                     })
             }
         }
