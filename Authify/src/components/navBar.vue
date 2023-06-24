@@ -1,10 +1,5 @@
 <template>
-    <nav>
-        <div class="py-4 flex justify-center gap-4">
-            <router-link class="link" to="/">Home</router-link>
-            <router-link class="link" to="/login">LogIn</router-link>
-            <router-link class="link" to="/profile">Profile</router-link>
-        </div>
+    <nav class="mt-12">
         <div class="flex justify-between md:px-12">
             <img :src="devLogo" alt="">
             <profileMenu class="z-20"/>

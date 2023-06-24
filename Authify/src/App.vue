@@ -1,15 +1,26 @@
 <template>
-    <div class="px-1">
-        <navBar class="mb-9"/>
+    <div class="px-1 h-full">
+        <navBar v-if="!isLogInPage" class="mb-9"/>
         <router-view></router-view>
     </div>
 </template>
 
-<script setup>
+<script >
     import navBar from './components/navBar.vue';
-    components:{
-        navBar
+
+    export default{
+        components:{
+            navBar
+        },
+        computed: {
+            isLogInPage(){
+                console.log(this.$route.name == 'Login')
+                return this.$route.name == 'Login'
+                
+            }
+        }
     }
+    
 </script>
 
 <style scoped>

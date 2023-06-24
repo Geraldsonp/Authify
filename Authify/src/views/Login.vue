@@ -1,4 +1,5 @@
 <template>
+    <div class="h-full flex flex-col justify-center">
     <div class="logIn-container">
             <img :src="logos.devChallenges" alt="">
            
@@ -28,6 +29,7 @@
                 <p class="text-center">{{ IsLogIn ? 'Dont have an account yet?' : 'Already a member? '}}<a class="text-blue-500" href="#" @click="IsLogIn = !IsLogIn">{{ IsLogIn ? 'Register' : "Login" }}</a></p>
             </div>
         </div>
+    </div>
 </template>
 <script >
 
@@ -91,7 +93,7 @@
 
 <style scoped>
     .logIn-container{
-        @apply mx-auto max-w-[475px] p-14 border rounded-2xl shadow-lg border-gray-300
+        @apply mx-auto max-w-[475px] p-14 border rounded-2xl shadow-lg border-gray-300 
     }
     .header-container{
         @apply my-5 pr-4
