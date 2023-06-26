@@ -9,9 +9,10 @@
 </style>
 <template>
     <div class="my-7">
-        <div class="my-6">
-            <label for="name" class="label">ImageUrl</label>
-            <input v-model="profileModel.imageUrl" id="name" type="text"  class="input" required>
+        <div class="my-6 relative">
+            <img :src="profileModel.imageUrl" alt="profile image" class="h-8 w-8">
+            <label for="image" class="label absolute">ImageUrl</label>
+            <input id="image" type="file"  class="hidden" required>
         </div>
         <div class="my-6">
             <label for="name" class="label">Name</label>
